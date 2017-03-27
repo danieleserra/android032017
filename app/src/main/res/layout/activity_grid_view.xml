@@ -8,8 +8,7 @@
         android:layout_height="300dp"
         android:id="@+id/gridView"
         android:layout_centerHorizontal="true"
-        android:stretchMode="columnWidth"
-        android:numColumns="auto_fit"/>
+        android:numColumns="3" />
 
     <Button
         android:id="@+id/button"

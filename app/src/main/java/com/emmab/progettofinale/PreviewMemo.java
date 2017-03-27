@@ -29,7 +29,7 @@ public class PreviewMemo {
     }
 
     public String getCorpo() {
-        return (corpo.substring(15)+"...");
+        return (corpo.substring(0,25)+"...");
     }
 
     public void setTitle(String title) {
@@ -42,6 +42,6 @@ public class PreviewMemo {
     }
 
     public String getTitle() {
-        return (title.substring(10)+"...");
+        return (title.substring(0,10)+"...");
     }
 }
