@@ -1,26 +1,35 @@
 package com.emmab.progettofinale;
 
+import android.util.Log;
+
 import java.util.Calendar;
 
 /**
  * Created by Epeople on 27/03/2017.
  */
 
-public class PreviewMemo {
+public class Note {
 
         private String title;
         private Calendar date;
         private String corpo;
+        private long id;
+        final int maxbody=25;
 
 
 
-    public PreviewMemo(Calendar d, String t, String c){
+    public Note(long id, Calendar d, String t, String c){
         title=t;
         date=d;
         corpo=c;
+        this.id=id;
+
+        Log.e(">>>costruttore",">>>>>>>>>>>>>>costrutt>>>>>>>>>>>>>"+d.getTime());
     }
 
     public Calendar getDate() {
+
+        Log.e(">>>costruttore",">>>>>>>>>>>>>>>date>>>>>>>>>>>>"+date.getTime());
         return date;
     }
 
@@ -29,7 +38,8 @@ public class PreviewMemo {
     }
 
     public String getCorpo() {
-        return (corpo.substring(0,25)+"...");
+
+            return corpo;
     }
 
     public void setTitle(String title) {
@@ -37,11 +47,15 @@ public class PreviewMemo {
 
     }
 
+    public long getId() {
+        return id;
+    }
+
     public void setDate(Calendar date) {
         this.date = date;
     }
 
     public String getTitle() {
-        return (title.substring(0,10)+"...");
+        return title;
     }
 }
