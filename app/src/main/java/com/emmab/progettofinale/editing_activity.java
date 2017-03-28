@@ -59,7 +59,15 @@ public class editing_activity extends AppCompatActivity {
 
             case R.id.save:
 
+                EditText et_body = (EditText) findViewById(R.id.show_memo_body);
+                EditText et_title = (EditText) findViewById(R.id.show_memo_title);
+                MioDataBaseHelper mydb = new MioDataBaseHelper(getApplicationContext());
+
+                mydb.updateNote(id,et_title.getText().toString(),et_body.getText().toString());
+///aggiunmgere attributo lon id senza final e static
+
                 Toast.makeText(this, "Nota salvata!", Toast.LENGTH_LONG).show();
+
                 esci();
                 return(true);
             case R.id.reset:

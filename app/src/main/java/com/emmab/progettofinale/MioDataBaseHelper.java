@@ -43,6 +43,13 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public void updateNote() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String sql = "delete from note;";
+        db.execSQL(sql);
+
+
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
