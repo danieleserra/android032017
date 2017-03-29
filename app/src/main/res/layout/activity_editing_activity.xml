@@ -24,7 +24,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="27/01/17   h. 10:38"
         android:layout_marginTop="9dp"
         android:layout_marginLeft="38dp"
         android:textAlignment="center"
@@ -38,8 +37,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
 
-        android:text="L."
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="80dp"
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"
         android:inputType="textMultiLine"
@@ -54,7 +52,7 @@
         android:inputType="textMultiLine"
 
         android:background="@android:color/transparent"
-        android:text="Titolo in rosso "
+
         android:layout_marginTop="15dp"
         android:layout_marginLeft="11dp"
         android:layout_marginRight="11dp"

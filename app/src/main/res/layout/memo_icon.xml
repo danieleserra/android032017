@@ -4,13 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout_memo" >
+    android:id="@+id/layout_memo">
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="148dp"
+        android:layout_height="148dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="false"
@@ -39,24 +39,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/imageView"
-        android:layout_marginTop="13dp"
-        android:layout_marginLeft="-10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="2dp"
         android:rotation="-3"
-        android:text="27/03"
+        android:text="27/03/17"
         android:textAlignment="center"
         android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/t_titolo"
+        android:layout_width="65dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="50dp"
+        android:maxWidth="155dp"
+        android:textAlignment="center"
+        android:text="Texttioper"
+        android:textColor="#76001F" />
 
     <TextView
         android:id="@+id/t_corpo"
         android:layout_width="65dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="14dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginTop="63dp"
         android:maxWidth="155dp"
         android:textAlignment="center"
         android:text="TextViewhfghfghgf"
-        android:textColor="#9a5d00" />
+        android:textColor="#471900" />
 
 
 </RelativeLayout>

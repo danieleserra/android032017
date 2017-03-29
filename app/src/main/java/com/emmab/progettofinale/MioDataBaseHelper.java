@@ -73,13 +73,15 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void popola(Calendar date, String title, String body){
+    public void createNote(String title, String body){
+        title=cleanText(title);
+        body=cleanText(body);
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put("date",date.getTime().getTime());
+        values.put("date",Calendar.getInstance().getTime().getTime());
         values.put("title",title);
         values.put("body",body);
-        long id = db.insert("note",null,values);
+        db.insert("note",null,values);
 
     }
 
@@ -110,5 +112,15 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
 
 
         return arg.replace("#apice", "'");
+    }
+
+    public void elimina_selezionati(ArrayList<Long> elementi_selezionati) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        for (int i = 0; i < elementi_selezionati.size(); i++) {
+            String sql = "DELETE FROM note WHERE _id=" + elementi_selezionati.get(i) + ";";
+            db.execSQL(sql);
+        }
+        db.close();
     }
 }

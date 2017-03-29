@@ -28,8 +28,9 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class editing_activity extends AppCompatActivity {
-
-   long id=0;
+    Menu menu=null;
+    long id=0;
+    Bundle bundle=null;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -55,11 +56,13 @@ public class editing_activity extends AppCompatActivity {
 
         mActionBar.setCustomView(mCustomView);
         mActionBar.setDisplayShowCustomEnabled(true);
-        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(103,112,195)));
+
+
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#CA9B5D")));
         Window window = this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(Color.rgb(102,0,204));
+        window.setStatusBarColor(Color.parseColor("#9A6725"));
         load();
 
     }
@@ -67,6 +70,7 @@ public class editing_activity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        this.menu=menu;
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.editing_menu, menu);
         return true;
@@ -84,8 +88,10 @@ public class editing_activity extends AppCompatActivity {
                 EditText et_body = (EditText) findViewById(R.id.show_memo_body);
                 EditText et_title = (EditText) findViewById(R.id.show_memo_title);
 
-
-                mydb.updateNote(id,et_title.getText().toString(),et_body.getText().toString());
+                if (bundle!=null)
+                    mydb.updateNote(id,et_title.getText().toString(),et_body.getText().toString());
+                else
+                    mydb.createNote(et_title.getText().toString(),et_body.getText().toString());
 
                 Toast.makeText(this, "Nota salvata!", Toast.LENGTH_LONG).show();
 
@@ -97,7 +103,8 @@ public class editing_activity extends AppCompatActivity {
                 Toast.makeText(this, "Modifiche cancellate!", Toast.LENGTH_LONG).show();
                 return(true);
             case R.id.delete:
-                mydb.deleteNote(id);
+                if (bundle!=null)
+                    mydb.deleteNote(id);
 
                 Toast.makeText(this, "Nota cancellata!", Toast.LENGTH_LONG).show();
                 esci();
@@ -127,94 +134,93 @@ public class editing_activity extends AppCompatActivity {
     }
 
     public void load(){
-
-
-        Bundle bundle = getIntent().getExtras();
-        if (!(bundle==null)){
-        id =bundle.getLong("id");
-        long date=bundle.getLong("date");
-        String corpo=bundle.getString("body");
-        String title=bundle.getString("title");
-
         SimpleDateFormat simple=new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.ITALIAN);
 
         EditText et_body = (EditText) findViewById(R.id.show_memo_body);
         EditText et_title = (EditText) findViewById(R.id.show_memo_title);
         TextView et_date = (TextView) findViewById(R.id.show_memo_date);
         TextView et_info = (TextView) findViewById(R.id.info_time);
-
-
         Calendar calendar=Calendar.getInstance();
-        calendar.setTimeInMillis(date);
 
-        et_body.setText(corpo);
-        et_title.setText(title);
-        et_date.setText(simple.format(calendar.getTime()));
-        int time=(int)(calendar.getTime().getTime()/1000);
-        int current_time=(int)(Calendar.getInstance().getTime().getTime()/1000);
-        int d_time=current_time-time;
+        bundle = getIntent().getExtras();
+        if (!(bundle==null)){
+            id =bundle.getLong("id");
+            long date=bundle.getLong("date");
+            String corpo=bundle.getString("body");
+            String title=bundle.getString("title");
 
-        Log.e(">>>>>>>>>>>>>>>>>>>>","current "+Calendar.getInstance().getTime());
-        Calendar c=Calendar.getInstance();
-        c.setTimeInMillis(d_time*1000);
-        Log.e(">>>>>>>>>>>>>>>>>>>>","differenza "+c.getTime());
+            calendar.setTimeInMillis(date);
+
+            et_body.setText(corpo);
+            et_title.setText(title);
+            et_date.setText(simple.format(calendar.getTime()));
+            int time=(int)(calendar.getTime().getTime()/1000);
+            int current_time=(int)(Calendar.getInstance().getTime().getTime()/1000);
+            int d_time=current_time-time;
+
+            Calendar c=Calendar.getInstance();
+            c.setTimeInMillis(d_time*1000);
 
 
-        String value;
-        if (d_time<(60)) {
-            value = "secondi";
-            time=d_time;
-        }
-        else{
-            value= "minuto";
-            time=1;
-            if (d_time>(60*2)) {
-                value = "minuti";
-                time=d_time/60;
+            String value;
+            if (d_time<(60)) {
+                value = "secondi";
+                time=d_time;
             }
-            if (d_time>(60*60)) {
-                value = "ora";
+            else{
+                value= "minuto";
                 time=1;
-            }
-            if (d_time>(60*60*2)) {
-                value = "ore";
-                time=d_time/(60*60);
-            }
-            if (d_time>(60*60*24)) {
-                value = "giorno";
-                time=1;
-            }
-            if (d_time>(60*60*24*2)) {
-                value = "giorni";
-                time=d_time/(60*60*24);
-            }
-            if (d_time>(60*60*24*30)) {
-                value = "mese";
-                time=1;
-            }
-            if (d_time>(60*60*24*30*2)) {
-                value = "mesi";
-                time=d_time/(60*60*24*30);
-            }
-            if (d_time>(60*60*24*365)) {
-                value = "anno";
-                time=1;
-            }
-            if (d_time>(60*60*24*365*2)) {
-                time=d_time/(60*60*24*365);
-                value = "anni";
+                if (d_time>(60*2)) {
+                    value = "minuti";
+                    time=d_time/60;
+                }
+                if (d_time>(60*60)) {
+                    value = "ora";
+                    time=1;
+                }
+                if (d_time>(60*60*2)) {
+                    value = "ore";
+                    time=d_time/(60*60);
+                }
+                if (d_time>(60*60*24)) {
+                    value = "giorno";
+                    time=1;
+                }
+                if (d_time>(60*60*24*2)) {
+                    value = "giorni";
+                    time=d_time/(60*60*24);
+                }
+                if (d_time>(60*60*24*30)) {
+                    value = "mese";
+                    time=1;
+                }
+                if (d_time>(60*60*24*30*2)) {
+                    value = "mesi";
+                    time=d_time/(60*60*24*30);
+                }
+                if (d_time>(60*60*24*365)) {
+                    value = "anno";
+                    time=1;
+                }
+                if (d_time>(60*60*24*365*2)) {
+                    time=d_time/(60*60*24*365);
+                    value = "anni";
+                }
+
             }
 
-        }
-
-        et_info.setText("ultima modifica: "+time+" "+value+" fa");
-        et_info.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-        et_info.setSingleLine(true);
-        et_info.setMarqueeRepeatLimit(-1);
-        et_info.setSelected(true);
+            et_info.setText("ultima modifica: "+time+" "+value+" fa");
+            et_info.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+            et_info.setSingleLine(true);
+            et_info.setMarqueeRepeatLimit(-1);
+            et_info.setSelected(true);
 
         }else{
 
+            et_body.setHint("Nuova nota");
+            et_title.setHint("Nuovo titolo");
+            et_date.setText(simple.format(calendar.getTime()));
+            et_info.setText("");
 
 
 
