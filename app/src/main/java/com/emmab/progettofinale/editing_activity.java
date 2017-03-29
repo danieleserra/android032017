@@ -1,19 +1,25 @@
 package com.emmab.progettofinale;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,33 +31,35 @@ public class editing_activity extends AppCompatActivity {
 
    long id=0;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editing_activity);
-        getActionBar().setDisplayShowTitleEnabled(false);
 
-        Dialog overlayInfo = new Dialog(editing_activity.this);
-        // Making sure there's no title.
-        overlayInfo.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // Making dialog content transparent.
-        overlayInfo.getWindow().setBackgroundDrawable(
-                new ColorDrawable(Color.TRANSPARENT));
-        // Removing window dim normally visible when dialog are shown.
-        overlayInfo.getWindow().clearFlags(
-                WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        // Setting position of content, relative to window.
-        WindowManager.LayoutParams params = overlayInfo.getWindow().getAttributes();
-        params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 100;
-        params.y = 20;
-        // If user taps anywhere on the screen, dialog will be cancelled.
-        overlayInfo.setCancelable(true);
-        // Setting the content using prepared XML layout file.
-        overlayInfo.setContentView(R.layout.dialog_over_editing);
-        overlayInfo.show();
+        ActionBar mActionBar = getSupportActionBar();
+        mActionBar.setDisplayShowHomeEnabled(false);
+        mActionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater mInflater = LayoutInflater.from(this);
 
+        View mCustomView = mInflater.inflate(R.layout.dialog_over_editing, null);
+        ImageView button= (ImageView) mCustomView.findViewById(R.id.back);
 
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                esci();
+            }
+        });
+
+        mActionBar.setCustomView(mCustomView);
+        mActionBar.setDisplayShowCustomEnabled(true);
+        mActionBar.setBackgroundDrawable(new ColorDrawable(Color.rgb(103,112,195)));
+        Window window = this.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.setStatusBarColor(Color.rgb(102,0,204));
         load();
 
     }
@@ -71,12 +79,12 @@ public class editing_activity extends AppCompatActivity {
         MioDataBaseHelper mydb = new MioDataBaseHelper(getApplicationContext());
         switch(item.getItemId()) {
 
-                case R.id.save:
+            case R.id.save:
 
                 EditText et_body = (EditText) findViewById(R.id.show_memo_body);
                 EditText et_title = (EditText) findViewById(R.id.show_memo_title);
 
-                load();
+
                 mydb.updateNote(id,et_title.getText().toString(),et_body.getText().toString());
 
                 Toast.makeText(this, "Nota salvata!", Toast.LENGTH_LONG).show();
@@ -155,6 +163,7 @@ public class editing_activity extends AppCompatActivity {
         String value;
         if (d_time<(60)) {
             value = "secondi";
+            time=d_time;
         }
         else{
             value= "minuto";
