@@ -1,6 +1,6 @@
 package com.emmab.progettofinale;
 
-import android.util.Log;
+
 
 import java.util.Calendar;
 
@@ -24,12 +24,12 @@ public class Note {
         corpo=c;
         this.id=id;
 
-        Log.e(">>>costruttore",">>>>>>>>>>>>>>costrutt>>>>>>>>>>>>>"+d.getTime());
+
     }
 
     public Calendar getDate() {
 
-        Log.e(">>>costruttore",">>>>>>>>>>>>>>>date>>>>>>>>>>>>"+date.getTime());
+
         return date;
     }
 

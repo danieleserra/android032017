@@ -3,7 +3,6 @@ package com.emmab.progettofinale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,6 @@ public class MemoAdapter extends BaseAdapter {
         final String title=ai.getTitle();
 
         txt_data.setText(simple.format(date.getTime()));
-        Log.e(">>>>>>>>>>>>>>>>>>>>",""+date.getTime());
 
         if (corpo.length()>25)
             txt_corpo.setText (corpo.substring(0,25)+"...");

@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.widget.GridView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Note> a_pm = new ArrayList<Note>();
+
 
 
 
@@ -21,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grid_view);
-        MioDataBaseHelper mydb = new MioDataBaseHelper(getApplicationContext());
+       /* MioDataBaseHelper mydb = new MioDataBaseHelper(getApplicationContext());
         Calendar data = Calendar.getInstance();
         Calendar data1 = Calendar.getInstance();
         Calendar data2 = Calendar.getInstance();
@@ -41,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         data2.set(Calendar.MONTH, 3-1);
         data2.set(Calendar.DAY_OF_MONTH, 22);
 
-        mydb.popola(data2, "Futurismo: l'apertura della mente", "fooo");
+        mydb.popola(data2, "Futurismo: l'apertura della mente", "fooo");*/
 
 
     }
@@ -50,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Log.e("Resume",">>>>>>>>>>>>>>>>>>>>>> resume");
         MioDataBaseHelper mydb = new MioDataBaseHelper(getApplicationContext());
 
 
