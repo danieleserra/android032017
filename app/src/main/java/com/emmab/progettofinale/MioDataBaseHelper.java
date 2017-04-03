@@ -29,7 +29,7 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
                 "body TEXT" +
                 ");";
         db.execSQL(sql);
-        db.close();
+       // db.close();
 
 
     }
@@ -82,6 +82,7 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
         values.put("title",title);
         values.put("body",body);
         db.insert("note",null,values);
+        db.close();
 
     }
 
@@ -99,6 +100,7 @@ public class MioDataBaseHelper extends SQLiteOpenHelper {
 
         }
 
+        db.close();
         return ar_note;
     }
 
